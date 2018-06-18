@@ -21,6 +21,8 @@ class MoviesController < ApplicationController
       )
   end
 
+  # TODO: create method and route
+
   private
 
   def require_movie
