@@ -35,9 +35,9 @@ class MoviesController < ApplicationController
 
 
   def movie_params
-    params.permit(:title, :overview, :inventory, :release_date)
+    params.permit(:title, :overview, :inventory, :release_date, :external_id, :image_url)
   end
-  
+
   def require_movie
     @movie = Movie.find_by(title: params[:title])
     unless @movie
