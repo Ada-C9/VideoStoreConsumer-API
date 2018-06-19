@@ -4,12 +4,13 @@ class RentalsController < ApplicationController
 
   # TODO: make sure that wave 2 works all the way
   def check_out
-    rental = Rental.new(movie: @movie, customer: @customer, due_date: params[:due_date])
+    puts rental_params
+    rental = Rental.new(movie: @movie, customer: @customer)
 
     if rental.save
-      render status: :ok, json: {}
+      render status: :ok, json: rental
     else
-      render status: :bad_request, json: { errors: rental.errors.messages }
+      render status: 501, json: { errors: "Fail to create a rental" }
     end
   end
 
@@ -45,7 +46,11 @@ class RentalsController < ApplicationController
   end
 
 private
-  # TODO: make error payloads arrays
+
+  def rental_params
+    return params.permit(:customer_id, :title)
+  end
+
   def require_movie
     @movie = Movie.find_by title: params[:title]
     unless @movie

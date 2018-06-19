@@ -3,10 +3,10 @@ class Rental < ApplicationRecord
   belongs_to :customer
 
   # validates :movie, uniqueness: { scope: :customer }
-  validates :due_date, presence: true
-  validate :due_date_in_future, on: :create
+  # validates :due_date, presence: true
+  # validate :due_date_in_future, on: :create
 
-  after_initialize :set_checkout_date
+  # after_initialize :set_checkout_date
 
   def self.first_outstanding(movie, customer)
     self.where(movie: movie, customer: customer, returned: false).order(:due_date).first
