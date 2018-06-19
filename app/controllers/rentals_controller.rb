@@ -9,6 +9,7 @@ class RentalsController < ApplicationController
     if rental.save
       render status: :ok, json: {}
     else
+      puts rental.errors.messages
       render status: :bad_request, json: { errors: rental.errors.messages }
     end
   end
