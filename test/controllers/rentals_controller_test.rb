@@ -37,7 +37,7 @@ class RentalsControllerTest < ActionDispatch::IntegrationTest
       assert_response :not_found
       data = JSON.parse @response.body
       data.must_include "errors"
-      data["errors"].must_include "title"
+      data["errors"].must_include "rental"
     end
 
     it "requires a valid customer ID" do
@@ -51,7 +51,7 @@ class RentalsControllerTest < ActionDispatch::IntegrationTest
       assert_response :not_found
       data = JSON.parse @response.body
       data.must_include "errors"
-      data["errors"].must_include "customer_id"
+      data["errors"].must_include "rental"
     end
 
     it "requires a due-date in the future" do
@@ -97,7 +97,7 @@ class RentalsControllerTest < ActionDispatch::IntegrationTest
       assert_response :not_found
       data = JSON.parse @response.body
       data.must_include "errors"
-      data["errors"].must_include "title"
+      data["errors"].must_include "rental"
     end
 
     it "requires a valid customer ID" do
@@ -110,7 +110,7 @@ class RentalsControllerTest < ActionDispatch::IntegrationTest
       assert_response :not_found
       data = JSON.parse @response.body
       data.must_include "errors"
-      data["errors"].must_include "customer_id"
+      data["errors"].must_include "rental"
     end
 
     it "requires there to be a rental for that customer-movie pair" do
