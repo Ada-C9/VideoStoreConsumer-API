@@ -11,7 +11,12 @@ class Movie < ApplicationRecord
     if !orig_value
       MovieWrapper::DEFAULT_IMG_URL
     elsif external_id
-      MovieWrapper.construct_image_url(orig_value)
+      str = MovieWrapper.construct_image_url(orig_value)
+      # index = str.rindex('https://image.tmdb.org/t/p/w185')
+      # if  index != 0
+      #   return str[index..-1]
+      # end
+      return str
     else
       orig_value
     end
