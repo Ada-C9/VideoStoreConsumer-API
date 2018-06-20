@@ -22,21 +22,22 @@ class MoviesController < ApplicationController
   end
 
   def create
-    puts "We made it"
-    puts params.inspect
+    puts "we made it"
+    puts "params below"
 
-    puts movie_params
+    movie = Movie.new(title: params["title"], overview: params["overview"], release_date: params["release_date"], image_url: params["image_url"])
+    movie.save
 
-    @movie = Movie.new(movie_params)
+    puts "movie"
+    puts movie.inspect
 
   end
 
   private
 
-  def movie_params
-    return params.require(:title, :overview, :release_date, :image_url ).permit(:external_id)
-
-  end
+  # def movie_params
+  #   return params.permit(title: params["title"], overview: params["overview"], release_date: params["release_date"], image_url: params["image_url"])
+  # end
 
   def require_movie
     @movie = Movie.find_by(title: params[:title])
