@@ -21,7 +21,22 @@ class MoviesController < ApplicationController
       )
   end
 
+  def create
+    puts "We made it"
+    puts params.inspect
+
+    puts movie_params
+
+    @movie = Movie.new(movie_params)
+
+  end
+
   private
+
+  def movie_params
+    return params.require(:title, :overview, :release_date, :image_url ).permit(:external_id)
+
+  end
 
   def require_movie
     @movie = Movie.find_by(title: params[:title])
