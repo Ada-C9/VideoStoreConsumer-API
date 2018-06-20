@@ -14,7 +14,7 @@ class RentalsController < ApplicationController
   end
 
   def check_in
-    rental = Rental.first_outstanding(@movie, @customer)
+    rental = Rental.find_by(movie: @movie, customer: @customer, returned: nil)
     unless rental
       return render status: :not_found, json: {
         errors: {

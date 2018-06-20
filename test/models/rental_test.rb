@@ -90,7 +90,6 @@ class RentalTest < ActiveSupport::TestCase
       rental.valid?.must_equal true
       rental.save
       Rental.count.must_equal old_count + 1
-      movie.reload
       movie.available_inventory.must_equal 0
     end
 
