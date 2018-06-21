@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
   end
 
   def create
-    movie = MovieWrapper.construct_movie(movie_params)
+    movie = Movie.new(movie_params)
     if movie.save
       render json: movie.as_json(only: [:id]), status: :ok
     else
