@@ -13,10 +13,16 @@ class Movie < ApplicationRecord
     puts "image_url method orig_value: #{orig_value}"
     if !orig_value
       MovieWrapper::DEFAULT_IMG_URL
-    elsif external_id && (orig_value[0] != "h")
+    elsif external_id && !url_valid?(orig_value)
       MovieWrapper.construct_image_url(orig_value)
     else
       orig_value
     end
+  end
+  
+private
+  def url_valid?(url)
+    url = URI.parse(url) rescue false
+    url.kind_of?(URI::HTTP) || url.kind_of?(URI::HTTPS)
   end
 end
