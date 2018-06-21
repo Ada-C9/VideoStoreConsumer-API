@@ -23,7 +23,7 @@ class MoviesController < ApplicationController
 
   def create
     # see if movie already exists in library (Movie.find_by(external_id: params[:external_id]))
-    
+
     movie = Movie.new(movie_params)
       if movie.save
         render json: { id: movie.id}, status: :ok
@@ -43,6 +43,6 @@ class MoviesController < ApplicationController
     end
   end
   def movie_params
-    params.permit(:title, :overview, :release_date, :image_url, :inventory)
+    params.permit(:title, :overview, :release_date, :image_url, :inventory, :external_id)
   end
 end
