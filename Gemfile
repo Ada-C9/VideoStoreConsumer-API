@@ -5,12 +5,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+
+
 group :development, :test do
   gem 'sqlite3'
 end
 
 group :production do
-  gem 'pg', '>=0.18', '<2.0'
+  gem 'pg', '~> 0.18'
 end
 
 gem 'awesome_print'
