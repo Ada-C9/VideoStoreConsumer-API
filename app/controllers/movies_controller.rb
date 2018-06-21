@@ -23,14 +23,18 @@ class MoviesController < ApplicationController
 
   def add_movie
     #pass in new_movie from params...somehow..its an object
-    @new_movie = params[:movie]
+    @new_movie = Movie.new()
+    @new_movie.title = params[:title]
+    @new_movie.overview = params[:overview]
+    @new_movie.release_date = params[:release_date]
+    @new_movie.image_url = params[:image_url]
+    @new_movie.external_id = params[:external_id]
 
-    if Movie.find_by(external_id: @new_movie.external_id)
+    if Movie.find_by(external_id: params[:external_id])
       render(
         status: :bad_request, json: { errors: "already in movie library" }
       )
     else
-      @new_movie = MovieWrapper.construct_movie(@new_movie)
       if @new_movie.save
         render(
           status: :ok,
