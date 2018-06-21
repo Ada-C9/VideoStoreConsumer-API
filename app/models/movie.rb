@@ -10,23 +10,13 @@ class Movie < ApplicationRecord
 
   def image_url
     orig_value = read_attribute :image_url
+    puts "image_url method orig_value: #{orig_value}"
     if !orig_value
       MovieWrapper::DEFAULT_IMG_URL
-    elsif external_id
+    elsif external_id && (orig_value[0] != "h")
       MovieWrapper.construct_image_url(orig_value)
     else
       orig_value
     end
   end
-
-  private
-  # def exists?
-  #   if Movie.find_by(external_id: self.external_id)
-  #     return render status: :bad_request, json: {
-  #       errors: {
-  #         rental: ["#{params[:title]} is already in the library"]
-  #       }
-  #     }
-  #   end
-  # end
 end
