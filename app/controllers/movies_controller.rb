@@ -23,7 +23,14 @@ class MoviesController < ApplicationController
 
 
   def create
-    movie = Movie.new(movie_params)
+    movie = Movie.find_by(external_id: params[:external_id])
+    if !movie
+      movie = Movie.new(movie_params)
+    else
+      render json: { ok: false, errors: movie.errors },
+      status: :bad_request
+    end
+
     if movie.save
       render json: movie.as_json, status: :ok
     else
