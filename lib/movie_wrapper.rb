@@ -20,6 +20,16 @@ class MovieWrapper
     end
   end
 
+  # def self.details(title)
+  #   puts "here we are"
+  #   url = BASE_URL + "search/movie?api_key=" + KEY + "&query=" + title
+  #   response =  HTTParty.get(url)
+  #   puts response
+  #
+  #   return response
+  #
+  # end
+
   private
 
   def self.construct_movie(api_result)

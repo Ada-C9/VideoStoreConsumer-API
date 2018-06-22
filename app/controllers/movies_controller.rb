@@ -21,7 +21,17 @@ class MoviesController < ApplicationController
       )
   end
 
+  def create
+    movie = Movie.new(title: params["title"], overview: params["overview"], release_date: params["release_date"], image_url: params["image_url"])
+    
+    movie.save
+  end
+
   private
+
+  # def movie_params
+  #   return params.permit(title: params["title"], overview: params["overview"], release_date: params["release_date"], image_url: params["image_url"])
+  # end
 
   def require_movie
     @movie = Movie.find_by(title: params[:title])
