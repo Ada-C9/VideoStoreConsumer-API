@@ -1,3 +1,5 @@
+require 'date'
+
 class CustomersController < ApplicationController
   SORT_FIELDS = %w(name registered_at postal_code)
 
@@ -10,7 +12,7 @@ class CustomersController < ApplicationController
       data = Customer.all
     end
 
-    data = data.paginate(page: params[:p], per_page: params[:n])
+    # data = data.paginate(page: params[:p], per_page: params[:n])
 
     render json: data.as_json(
       only: [:id, :name, :registered_at, :address, :city, :state, :postal_code, :phone, :account_credit],
@@ -18,7 +20,59 @@ class CustomersController < ApplicationController
     )
   end
 
+  def show
+    data = Customer.find_by(id: params[:id])
+
+    render json: data.as_json(
+      only: [:id, :name, :registered_at, :address, :city, :state, :postal_code, :phone, :account_credit],
+      methods: [:movies_checked_out_count]
+    )
+  end
+
+  def create
+    customer = Customer.new(customer_params)
+    customer.registered_at = Date.today
+
+    if customer.save
+      render json: customer.as_json(
+        only: [:id, :name, :registered_at, :address, :city, :state, :postal_code, :phone, :account_credit],
+        methods: [:movies_checked_out_count]
+      ), status: :ok
+    else
+      render status: :bad_request
+    end
+  end
+
+  def update
+    customer = Customer.find_by(id: params[:id])
+
+    customer.assign_attributes(customer_params)
+
+    if customer.save
+      render json: customer.as_json(
+        only: [:id, :name, :registered_at, :address, :city, :state, :postal_code, :phone, :account_credit],
+        methods: [:movies_checked_out_count]
+      ), status: :ok
+    else
+      render status: :bad_request
+    end
+
+  end
+
+  def destroy
+    if Customer.delete(params[:id])
+      render status: :ok
+    else
+      render status: :bad_request
+    end
+  end
+
 private
+
+  def customer_params
+    return params.permit(:name, :address, :city, :state, :postal_code, :phone, :account_credit)
+  end
+
   def parse_query_args
     errors = {}
     @sort = params[:sort]
