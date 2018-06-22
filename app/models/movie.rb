@@ -2,8 +2,11 @@ class Movie < ApplicationRecord
   has_many :rentals
   has_many :customers, through: :rentals
 
+  validates :external_id, uniqueness: true
+  validates :title, presence: true
+
   def available_inventory
-    self.inventory - Rental.where(movie: self, returned: false).length
+    self.inventory - Rental.where(movie: self, returned: nil).length
   end
 
   def image_url
