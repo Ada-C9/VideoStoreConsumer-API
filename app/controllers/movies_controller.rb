@@ -17,7 +17,6 @@ class MoviesController < ApplicationController
 
     if !@movie
       # If movie doesnt already exists in our library:
-      puts "MOOOOVIE: #{@movie}"
       @movie = Movie.new(movie_params)
       @movie.inventory = 1
     else
