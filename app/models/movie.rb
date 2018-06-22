@@ -5,6 +5,7 @@ class Movie < ApplicationRecord
   # validates :overview, uniqueness: { scope: :title }
 
   def available_inventory
+    return 0 if self.inventory.nil?
     self.inventory - Rental.where(movie: self, returned: [false, nil]).length
   end
 
