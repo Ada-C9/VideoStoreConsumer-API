@@ -14,6 +14,7 @@ class MovieWrapper
       return []
     else
       movies = response["results"].map do |result|
+        result["image_url"] = result["poster_path"]
         self.construct_movie(result)
       end
       return movies
@@ -27,7 +28,7 @@ class MovieWrapper
       title: api_result["title"],
       overview: api_result["overview"],
       release_date: api_result["release_date"],
-      image_url: api_result["poster_path"], #(api_result["poster_path"] ? self.construct_image_url(api_result["poster_path"]) : nil),
+      image_url: api_result["image_url"],
       external_id: api_result["id"])
   end
 
