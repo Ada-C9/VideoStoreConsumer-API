@@ -22,15 +22,9 @@ class MoviesController < ApplicationController
   end
 
   def create
-    puts "we made it"
-    puts "params below"
-
     movie = Movie.new(title: params["title"], overview: params["overview"], release_date: params["release_date"], image_url: params["image_url"])
+    
     movie.save
-
-    puts "movie"
-    puts movie.inspect
-
   end
 
   private
