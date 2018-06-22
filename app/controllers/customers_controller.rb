@@ -31,6 +31,7 @@ class CustomersController < ApplicationController
 
   def create
     customer = Customer.new(customer_params)
+    customer.registered_at = Date.today
 
     if customer.save
       render json: customer.as_json(
