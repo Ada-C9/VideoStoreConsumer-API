@@ -13,6 +13,7 @@ class MovieWrapper
     if response["total_results"] == 0
       return []
     else
+      puts "original results from external query: #{response["results"][0]}"
       movies = response["results"].map do |result|
         self.construct_movie(result)
       end
@@ -23,6 +24,7 @@ class MovieWrapper
   private
 
   def self.construct_movie(api_result)
+    puts "api image: #{api_result["poster_path"]}"
     Movie.new(
       title: api_result["title"],
       overview: api_result["overview"],
